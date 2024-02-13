@@ -1,4 +1,3 @@
-// require('dotenv').config();
 import UploadPost from "./Components/UploadPost/UploadPost";
 import Post from "./Components/Posts/Post";
 import { ClipLoader } from "react-spinners";
@@ -7,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+
 
 import { useState, useEffect } from "react";
 import { CookieSharp } from "@mui/icons-material";
