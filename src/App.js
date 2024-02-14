@@ -9,7 +9,6 @@ import Grid from "@mui/material/Grid";
 
 
 import { useState, useEffect } from "react";
-import { CookieSharp } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -37,10 +36,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    console.log(postItem);
-    postItem.map(({ title, prize, imageUrl, describe }) =>
-      console.log(title, prize, imageUrl, describe)
-    );
     const timer = setTimeout(()=>{
       getPosts();
     }, 2000);
@@ -54,19 +49,22 @@ export default function App() {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
         <Grid item xs={6} md={8}>
-          {!loading && <ClipLoader md />}
-          {loading &&
-            postItem.map(({ title, prize, imageUrl, describe }) => (
-              <Post
-                title={title}
-                imageUrl={imageUrl}
-                prize={prize}
-                describe={describe}
-              />
-            ))}
+          <div style={{textAlign : 'center', marginTop : '2rem'} }>
+            {!loading && <ClipLoader size={100}/>}
+            {loading && postItem.length === 0 && <h3> You have't post anything yet.</h3> }
+            {loading &&
+              postItem.map(({ title, prize, imageUrl, describe }) => (
+                <Post
+                  title={title}
+                  imageUrl={imageUrl}
+                  prize={prize}
+                  describe={describe}
+                />
+              ))}
+          </div>
         </Grid>
         <Grid item xs={6} md={4}>
-          <Item>
+          <Item style={{textAlign : 'center', marginTop : '5rem'} }>
             <UploadPost />
           </Item>
         </Grid>

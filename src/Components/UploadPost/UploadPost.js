@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
@@ -15,39 +15,56 @@ const EndPoint = "http://localhost:8080/feed/post";
 const defaultTheme = createTheme();
 
 export default function UploadPost() {
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile((eve) => selectedFile);
+  const initialProps = {
+    imageUrl: "",
+    title: "",
+    prize: "",
+    describe: "",
   };
+
+  let [values, setValues] = useState(initialProps);
+  const [doyouSumit, setDoYouSubmit] = useState(false);
+  const InputeChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
+  };
+  
+
+
+  const fileHandler = (event) => {
+    // values.imageUrl = event.target.files[0];
+
+    if(event !== undefined){
+      const {name, value} = event.target;
+      console.log(name, " ",  event.target.files[0]);
+      setValues({...values, [name] : event.target.files[0]});
+      
+    }
+
+  };
+
+  useEffect(()=>{
+    fileHandler();
+  }, [doyouSumit])
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(event);
-  
-    const data = {
-      title: event.target.title.value,
-      describe: event.target.describe.value,
-      prize: event.target.prize.value,
-      imageUrl: event.target.imageUrl.files[0],
-    };
-    console.log(event.target.imageUrl.files[0].name);
-
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     };
 
-    try{
-       const res = await axios.post(EndPoint, data, config);
-       console.log(res);
-    }   
-    catch(err){
-        console.log(err);
+    try {
+      const res = await axios.post(EndPoint, values, config);
+      console.log(res);
+      setValues(()=>initialProps);
+      setDoYouSubmit(true);
+    } catch (err) {
+      console.log(err);
     }
-
   };
 
   return (
@@ -77,6 +94,8 @@ export default function UploadPost() {
               label="Title"
               name="title"
               autoFocus
+              value={values.title}
+              onChange={InputeChangeHandler}
             />
             <TextField
               margin="normal"
@@ -86,6 +105,8 @@ export default function UploadPost() {
               label="Describe"
               type="text"
               id="describe"
+              value={values.describe}
+              onChange={InputeChangeHandler}
             />
             <TextField
               margin="normal"
@@ -95,6 +116,8 @@ export default function UploadPost() {
               label="Networth"
               type="number"
               id="prize"
+              value={values.prize}
+              onChange={InputeChangeHandler}
             />
             <TextField
               margin="normal"
@@ -103,7 +126,9 @@ export default function UploadPost() {
               name="imageUrl"
               type="file"
               id="imageUrl"
-              onChange={handleFileChange}
+              title=" "
+              onChange={fileHandler}
+              value={values.imageUrl?.value}
             />
 
             <Button
