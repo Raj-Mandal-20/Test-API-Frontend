@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
-const EndPoint = "http://localhost:8080/feed/post";
+const EndPoint = "https://test-api-hu4q.onrender.com/feed/post";
 
 const defaultTheme = createTheme();
 

@@ -21,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function App() {
   const [postItem, setPostItem] = useState([]);
   const [loading, setLoading] = useState(false);
-  const url = "http://localhost:8080/feed/posts";
+  const url = "https://test-api-hu4q.onrender.com/feed/posts";
   const getPosts = async () => {
     try {
       const res = await fetch(url);

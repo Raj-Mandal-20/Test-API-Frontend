@@ -13,7 +13,7 @@ export default function Post(props) {
     <List md={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
       <ListItem alignItems="center">
         <ListItemAvatar slot='5'>
-          <Avatar alt="Remy Sharp" src={`http://localhost:8080/${props.imageUrl}`} sx={{ width: 80, height: 80 }} />
+          <Avatar alt="Remy Sharp" src={`https://test-api-hu4q.onrender.com/${props.imageUrl}`} sx={{ width: 80, height: 80 }} />
         </ListItemAvatar>
         <ListItemText  sx={{marginLeft : 2, fontWeight : 'bold'}}
           primary={props.title}
